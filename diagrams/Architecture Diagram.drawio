@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="VoTYhsibeeYYvlBWR3X1">
+    <mxGraphModel dx="1325" dy="642" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;       verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="CPI Ghana BI Prototype — System Architecture" vertex="1">
+          <mxGeometry height="40" width="600" x="100" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;       strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" value="LAYER 1 — DATA SOURCE" vertex="1">
+          <mxGeometry height="60" width="600" x="100" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;       strokeColor=#6c8ebf;fontSize=11;" value="GSS StatBank (stat.ghana.gov.gh)&lt;br&gt;Monthly CPI Excel files: 4 downloads, 120 months each" vertex="1">
+          <mxGeometry height="40" width="600" x="100" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="15" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;       strokeColor=#2E75B6;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="200" as="sourcePoint" />
+            <mxPoint x="400" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;       strokeColor=#82b366;fontSize=12;fontStyle=1;" value="LAYER 2 — INTEGRATION (ETL)" vertex="1">
+          <mxGeometry height="60" width="600" x="100" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;       strokeColor=#82b366;fontSize=11;" value="Power Query (Excel): cleaning and restructuring&lt;br&gt;SQL COPY commands: CSV to staging table&lt;br&gt;SQL INSERT with JOINs: staging to fact_cpi" vertex="1">
+          <mxGeometry height="60" width="600" x="100" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="25" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;       strokeColor=#2E75B6;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="350" as="sourcePoint" />
+            <mxPoint x="400" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;       strokeColor=#d6b656;fontSize=12;fontStyle=1;" value="LAYER 3 — DATA (PostgreSQL v15)" vertex="1">
+          <mxGeometry height="60" width="600" x="100" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="31" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;       strokeColor=#d6b656;fontSize=11;" value="dim_period (120 rows) | dim_category (16 rows) | dim_indicator (3 rows)&#xa;fact_cpi (2,160 rows) | 5 analytics views (vw_headline_cpi, vw_category_cpi, vw_inflation_rates, vw_annual_summary, vw_category_annual_avg)" vertex="1">
+          <mxGeometry height="60" width="600" x="100" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="35" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;       strokeColor=#2E75B6;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="500" as="sourcePoint" />
+            <mxPoint x="400" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="40" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;       strokeColor=#b85450;fontSize=12;fontStyle=1;" value="LAYER 4 — PRESENTATION (Power BI Desktop)" vertex="1">
+          <mxGeometry height="60" width="600" x="100" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="41" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;       strokeColor=#b85450;fontSize=11;" value="Dashboard 1: Headline CPI | Dashboard 2: Category Indices&#xa;Dashboard 3: YoY and MoM Changes | Dashboard 4: Multi-period Trend Explorer" vertex="1">
+          <mxGeometry height="50" width="600" x="100" y="590" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
