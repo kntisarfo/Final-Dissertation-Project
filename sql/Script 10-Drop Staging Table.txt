@@ -1,0 +1,2 @@
+DROP TABLE staging_cpi;
+DROP TABLE staging_category;

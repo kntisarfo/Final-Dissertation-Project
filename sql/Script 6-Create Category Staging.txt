@@ -1,0 +1,5 @@
+CREATE TABLE staging_category (
+    period_code    VARCHAR(7),
+    category_name  VARCHAR(100),
+    value          NUMERIC(10,2)
+);

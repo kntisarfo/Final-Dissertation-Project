@@ -1,0 +1,28 @@
+CREATE TABLE dim_period (
+    period_id     SERIAL PRIMARY KEY,
+    period_code   VARCHAR(7) NOT NULL UNIQUE,
+    year          INT NOT NULL,
+    month         INT NOT NULL,
+    CONSTRAINT chk_month CHECK (month BETWEEN 1 AND 12),
+    CONSTRAINT chk_year CHECK (year BETWEEN 2015 AND 2024)
+);
+
+CREATE TABLE dim_category (
+    category_id    SERIAL PRIMARY KEY,
+    category_name  VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE dim_indicator (
+    indicator_id    SERIAL PRIMARY KEY,
+    indicator_name  VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE fact_cpi (
+    fact_id       SERIAL PRIMARY KEY,
+    period_id     INT NOT NULL REFERENCES dim_period(period_id),
+    category_id   INT NOT NULL REFERENCES dim_category(category_id),
+    indicator_id  INT NOT NULL REFERENCES dim_indicator(indicator_id),
+    value         NUMERIC(10,2),
+    source        VARCHAR(50) DEFAULT 'GSS StatBank',
+    CONSTRAINT uq_fact UNIQUE (period_id, category_id, indicator_id)
+);

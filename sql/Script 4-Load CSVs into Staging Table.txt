@@ -1,0 +1,11 @@
+COPY staging_cpi (period_code, value, indicator_name, category_name)
+FROM 'C:\Cleaned_Data\CPI_clean.csv'
+WITH (FORMAT csv, HEADER true);
+
+COPY staging_cpi (period_code, value, indicator_name, category_name)
+FROM 'C:\Cleaned_Data\YoY_clean.csv'
+WITH (FORMAT csv, HEADER true);
+
+COPY staging_cpi (period_code, value, indicator_name, category_name)
+FROM 'C:\Cleaned_Data\MoM_clean.csv'
+WITH (FORMAT csv, HEADER true);

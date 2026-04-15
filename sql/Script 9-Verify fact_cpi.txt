@@ -1,0 +1,9 @@
+SELECT 
+    i.indicator_name,
+    c.category_name,
+    COUNT(*) as row_count
+FROM fact_cpi f
+JOIN dim_indicator i ON i.indicator_id = f.indicator_id
+JOIN dim_category c ON c.category_id = f.category_id
+GROUP BY i.indicator_name, c.category_name
+ORDER BY i.indicator_name, c.category_name;

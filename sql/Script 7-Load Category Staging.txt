@@ -1,0 +1,3 @@
+COPY staging_category (period_code, category_name, value)
+FROM 'C:\Cleaned_Data\Category_CPI_clean.csv'
+WITH (FORMAT csv, HEADER true);

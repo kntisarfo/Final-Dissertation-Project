@@ -1,0 +1,11 @@
+INSERT INTO fact_cpi (period_id, category_id, indicator_id, value, source)
+SELECT
+    p.period_id,
+    c.category_id,
+    i.indicator_id,
+    s.value,
+    'GSS StatBank'
+FROM staging_cpi s
+JOIN dim_period    p ON p.period_code   = s.period_code
+JOIN dim_category  c ON c.category_name = s.category_name
+JOIN dim_indicator i ON i.indicator_name = s.indicator_name;

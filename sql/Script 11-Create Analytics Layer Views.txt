@@ -1,0 +1,76 @@
+CREATE VIEW vw_headline_cpi AS
+SELECT
+    p.period_code,
+    p.year,
+    p.month,
+    f.value AS cpi_index
+FROM fact_cpi f
+JOIN dim_period    p ON p.period_id    = f.period_id
+JOIN dim_category  c ON c.category_id  = f.category_id
+JOIN dim_indicator i ON i.indicator_id = f.indicator_id
+WHERE i.indicator_name = 'Consumer Price Index'
+AND   c.category_name  = 'All products'
+ORDER BY p.year, p.month;
+
+CREATE VIEW vw_category_cpi AS
+SELECT
+    p.period_code,
+    p.year,
+    p.month,
+    c.category_name,
+    f.value AS cpi_index
+FROM fact_cpi f
+JOIN dim_period    p ON p.period_id    = f.period_id
+JOIN dim_category  c ON c.category_id  = f.category_id
+JOIN dim_indicator i ON i.indicator_id = f.indicator_id
+WHERE i.indicator_name = 'Consumer Price Index'
+AND   c.category_name != 'All products'
+ORDER BY p.year, p.month, c.category_name;
+
+CREATE VIEW vw_inflation_rates AS
+SELECT
+    p.period_code,
+    p.year,
+    p.month,
+    MAX(CASE WHEN i.indicator_name = 'Year-on-year inflation (%)'
+        THEN f.value END) AS yoy_rate,
+    MAX(CASE WHEN i.indicator_name = 'Month-on-month inflation (%)'
+        THEN f.value END) AS mom_rate
+FROM fact_cpi f
+JOIN dim_period    p ON p.period_id    = f.period_id
+JOIN dim_category  c ON c.category_id  = f.category_id
+JOIN dim_indicator i ON i.indicator_id = f.indicator_id
+WHERE c.category_name = 'All products'
+GROUP BY p.period_code, p.year, p.month
+ORDER BY p.year, p.month;
+
+CREATE VIEW vw_annual_summary AS
+SELECT
+    p.year,
+    ROUND(AVG(CASE WHEN i.indicator_name = 'Consumer Price Index'
+        THEN f.value END), 2) AS avg_cpi,
+    ROUND(AVG(CASE WHEN i.indicator_name = 'Year-on-year inflation (%)'
+        THEN f.value END), 2) AS avg_yoy,
+    ROUND(AVG(CASE WHEN i.indicator_name = 'Month-on-month inflation (%)'
+        THEN f.value END), 2) AS avg_mom
+FROM fact_cpi f
+JOIN dim_period    p ON p.period_id    = f.period_id
+JOIN dim_category  c ON c.category_id  = f.category_id
+JOIN dim_indicator i ON i.indicator_id = f.indicator_id
+WHERE c.category_name = 'All products'
+GROUP BY p.year
+ORDER BY p.year;
+
+CREATE VIEW vw_category_annual_avg AS
+SELECT
+    p.year,
+    c.category_name,
+    ROUND(AVG(f.value), 2) AS avg_cpi
+FROM fact_cpi f
+JOIN dim_period    p ON p.period_id    = f.period_id
+JOIN dim_category  c ON c.category_id  = f.category_id
+JOIN dim_indicator i ON i.indicator_id = f.indicator_id
+WHERE i.indicator_name = 'Consumer Price Index'
+AND   c.category_name != 'All products'
+GROUP BY p.year, c.category_name
+ORDER BY p.year, c.category_name;

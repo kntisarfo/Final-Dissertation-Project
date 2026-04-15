@@ -1,0 +1,33 @@
+INSERT INTO dim_indicator (indicator_name) VALUES
+('Consumer Price Index'),
+('Year-on-year inflation (%)'),
+('Month-on-month inflation (%)');
+
+INSERT INTO dim_category (category_name) VALUES
+('All products'),
+('Food'),
+('Food and non-alcoholic beverages'),
+('Non-food'),
+('Alcoholic beverages, tobacco and narcotics'),
+('Clothing and footwear'),
+('Education services'),
+('Furnishings, household equipment and routine household maintenance'),
+('Health'),
+('Housing, water, electricity, gas and other fuels'),
+('Information and communication'),
+('Insurance and financial services'),
+('Personal care, social protection and miscellaneous goods and services'),
+('Recreation, sport and culture'),
+('Restaurants and accommodation services'),
+('Transport');
+
+INSERT INTO dim_period (period_code, year, month)
+SELECT
+    TO_CHAR(d, 'YYYY') || 'M' || TO_CHAR(d, 'MM'),
+    EXTRACT(YEAR FROM d)::INT,
+    EXTRACT(MONTH FROM d)::INT
+FROM generate_series(
+    '2015-01-01'::DATE,
+    '2024-12-01'::DATE,
+    '1 month'::INTERVAL
+) AS d;
